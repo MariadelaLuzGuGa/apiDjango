@@ -92,11 +92,13 @@ WSGI_APPLICATION = 'APIMARIA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'AuJoMa.03',
-        'HOST': 'localhost', 
-        'PORT': '',     
+        # es el database
+        'NAME': 'servicio_7af3',
+        # el usuario
+        'USER': 'maria2023',
+        'PASSWORD': 'SM0WKWhYqa5PEZRmTelnrs5WddcsIA36',
+        'HOST': 'oregon-postgres.render.com', 
+        'PORT': '5432',     
         
     }
 }
