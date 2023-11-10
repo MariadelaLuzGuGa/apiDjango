@@ -80,7 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'APIMARIA.wsgi.application'
-# $gunicorn APIMARIA.wsgi:APIMARIA
+# $gunicorn APIMARIA.wsgi:application
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
