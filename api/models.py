@@ -1,23 +1,19 @@
-# """
-# Codigo para La BASE DE DATOS de Servico Social del TESCHI
-# """
-# from django.db import models
-
-# # Create your models here.
-# class Registros(models.Model):
-#     """Metodo de REGISTRO de la Primera tabla"""
-#     uname = models.CharField(max_length=30, primary_key=True)
-#     email = models.EmailField()
-#     pass1 = models.CharField(max_length=50)
-#     pass2 = models.CharField(max_length=50)
-
-#     def __str__(self):
-#         texto = "{0}({1})"
-#         return texto.format(self.uname, self.email)
 """
-Codigo para La BASE DE DATOS de formulario de POSGRETSQL
+Codigo para La BASE DE DATOS de Registro y formulario de POSGRETSQL
 """
 from django.db import models
+
+# Create your models here.
+class Registros(models.Model):
+    """Metodo de REGISTRO de la Primera tabla"""
+    uname = models.CharField(max_length=30, primary_key=True)
+    email = models.EmailField()
+    pass1 = models.CharField(max_length=50)
+    pass2 = models.CharField(max_length=50)
+
+    def __str__(self):
+        texto = "{0}({1})"
+        return texto.format(self.uname, self.email)
 
 class Respuestaschatbot(models.Model):
     marca_temporal = models.DateTimeField()
@@ -32,4 +28,3 @@ class Respuestaschatbot(models.Model):
 
     def __str__(self):
         return str(self.nombre_completo)
-

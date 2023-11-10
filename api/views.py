@@ -2,20 +2,21 @@
 Codigo en Vista para el Login
 """
 #from rest_framework.views import APIView
-from django.shortcuts import render, redirect
 #from .models import Registros
+# from django.shortcuts import HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
-# from django.shortcuts import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .models import Respuestaschatbot
+from .models import Registros
 
 # Create your views here.
-@login_required(login_url='login')
+# @login_required(login_url='login')
 
 
 
@@ -115,13 +116,6 @@ def HomePage(request):
 
 
 
-
-
-
-
-
-
- 
 def SignupPage(request):
     """b"""
     if request.method=='POST':
@@ -129,36 +123,60 @@ def SignupPage(request):
         email=request.POST.get('email')
         pass1=request.POST.get('password1')
         pass2=request.POST.get('password2')
-        
+
+        if Registros.objects.filter(uname=uname).exists():  #Validar si el usuario ya existe
+            messages.error(request, "Usuario duplicado")
+            return render (request,'registro.html')
+
         if pass1!=pass2:
             messages.error(request, "La Contraseña no coincide")
+            return render (request,'registro.html')
         else:
-            my_user=User.objects.create_user(uname,email,pass1)
+            my_user=Registros(uname=uname,email=email,pass1=pass1,pass2=pass2)
             my_user.save()
             contact(request)
             return redirect('login')
-        
+
     return render (request,'registro.html')
+
 
 def LoginPage(request):
     """c"""
-    if request.method=='POST':
-        username=request.POST.get('username')
-        pass1=request.POST.get('pass')
-        # print(username,pass1)
-        user=authenticate(request,username=username,password=pass1)
-        if user is not None:
-            login(request,user)
-            messages.success(request, "Usuario registrado exitosamente")
-            return redirect('home')
+    # if request.method=='POST':
+    #     username=request.POST.get('username')
+    #     pass1=request.POST.get('pass')
+    #     # print(username,pass1)
+    #     user=authenticate(request,username=username,password=pass1)
+    #     if user is not None:
+    #         login(request,user)
+    #         messages.success(request, "Usuario registrado exitosamente")
+    #         return redirect('home')
+    #     else:
+    #         messages.error(request, "El Usuario o Contraseña son Incorrectos")
+    if request.method == 'POST':
+        uname = request.POST['username']
+        pass1 = request.POST['pass']
+        # Busca un usuario
+        try:
+            usuario = Registros.objects.get(uname=uname)
+        except Registros.DoesNotExist:
+            usuario = None
+
+        if usuario is not None and usuario.pass1 == pass1:
+            # autentica al usuario
+            request.session['username'] = uname  # Almacena el ID del usuario en la sesión
+            return redirect("home")  # ir a la página de inicio
         else:
-            messages.error(request, "El Usuario o Contraseña son Incorrectos")
-    
+            # Si las credenciales no son válidas, muestra un mensaje de error
+            messages.error(request, 'El Usuario o Contraseña son Incorrectos')
+
     return render (request, 'login.html')
+
 
 def LogoutPage(request):
     # logout(request)
     return redirect('login')
+
 
 def contact(request):
     if request.method == "POST":
@@ -166,20 +184,20 @@ def contact(request):
         email=request.POST['email']
         #subject=request.POST['subject']
         #message=request.POST['message']
-        
+
         template = render_to_string('email_template.html', {
             'name': username,
             'email': email,
             #'message': message
         })
-        
+
         email = EmailMessage(
             subject='Confirmacion de registro',
             body=template,
             from_email=settings.EMAIL_HOST_USER,
             to=[email]
          )
-        
+
         email.fail_silenty = False
         email.send()
         messages.success(request, "Registro exitoso se ha enviado un mensaje a tu correo")
