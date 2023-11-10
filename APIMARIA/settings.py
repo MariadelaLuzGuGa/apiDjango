@@ -30,8 +30,8 @@ SECRET_KEY = 'django-insecure-@^lpj**6#0)rbq_oamqmz=l&g8v4ny57$2ms&5zy59#7xxpl92
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['ServicioSocial.onrender.com']
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ServicioSocial.onrender.com']
 
 # AUTH_USER_MODEL = 'api.Registros'
 
@@ -88,32 +88,32 @@ WSGI_APPLICATION = 'APIMARIA.wsgi.application'
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        # es el database
-        'NAME': 'postgres',
-        # el usuario
-        'USER': 'postgres',
-        'PASSWORD': 'AuJoMa.03',
-        'HOST': 'localhost', 
-        'PORT': '5432',     
-        
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         # es el database
-#         'NAME': 'servicio_7af3',
+#         'NAME': 'postgres',
 #         # el usuario
-#         'USER': 'maria2023',
-#         'PASSWORD': 'SM0WKWhYqa5PEZRmTelnrs5WddcsIA36',
-#         'HOST': 'oregon-postgres.render.com', 
+#         'USER': 'postgres',
+#         'PASSWORD': 'AuJoMa.03',
+#         'HOST': 'localhost', 
 #         'PORT': '5432',     
+        
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        # es el database
+        'NAME': 'servicio_7af3',
+        # el usuario
+        'USER': 'maria2023',
+        'PASSWORD': 'SM0WKWhYqa5PEZRmTelnrs5WddcsIA36',
+        'HOST': 'oregon-postgres.render.com', 
+        'PORT': '5432',     
+    }
+}
 # 'NAME': 'ServicioSocial.db',
 
 
@@ -154,7 +154,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
