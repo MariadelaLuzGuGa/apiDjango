@@ -28,3 +28,22 @@ class Respuestaschatbot(models.Model):
 
     def __str__(self):
         return str(self.nombre_completo)
+
+# models.py
+# from django.db import models
+# models.py
+from django.db import models
+
+class RegistroInicioSesion(models.Model):
+    usuario = models.ForeignKey('Registros', on_delete=models.CASCADE)
+    marca_tiempo = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.usuario)
+
+class RegistroCierreSesion(models.Model):
+    usuario = models.ForeignKey('Registros', on_delete=models.CASCADE)
+    marca_tiempo = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.usuario)

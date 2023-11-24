@@ -14,7 +14,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .models import Respuestaschatbot
 from .models import Registros
-
+from .models import RegistroInicioSesion
+from .models import RegistroCierreSesion
 # Create your views here.
 # @login_required(login_url='login')
 
@@ -123,11 +124,17 @@ def SignupPage(request):
         email=request.POST.get('email')
         pass1=request.POST.get('password1')
         pass2=request.POST.get('password2')
-
+        
+        # Validar si el usuario ya existe
         if Registros.objects.filter(uname=uname).exists():  #Validar si el usuario ya existe
             messages.error(request, "Usuario duplicado")
             return render (request,'registro.html')
 
+        # Validar si el correo electrónico ya existe
+        if Registros.objects.filter(email=email).exists():
+            messages.error(request, "Correo electrónico duplicado")
+            return render(request, 'registro.html')
+        
         if pass1!=pass2:
             messages.error(request, "La Contraseña no coincide")
             return render (request,'registro.html')
@@ -165,6 +172,11 @@ def LoginPage(request):
         if usuario is not None and usuario.pass1 == pass1:
             # autentica al usuario
             request.session['username'] = uname  # Almacena el ID del usuario en la sesión
+            
+            # Registra el inicio de sesión en la nueva tabla
+            registro_inicio_sesion = RegistroInicioSesion(usuario=usuario)
+            registro_inicio_sesion.save()
+            
             return redirect("home")  # ir a la página de inicio
         else:
             # Si las credenciales no son válidas, muestra un mensaje de error
@@ -175,8 +187,18 @@ def LoginPage(request):
 
 def LogoutPage(request):
     # logout(request)
+    # Registra el cierre de sesión al obtener el usuario actual
+    if 'username' in request.session:
+        usuario_actual = Registros.objects.get(uname=request.session['username'])
+        registro_cierre_sesion = RegistroCierreSesion(usuario=usuario_actual)
+        registro_cierre_sesion.save()
+
+    logout(request)
+    
     return redirect('login')
 
+def calendario_view(request):
+    return render(request, 'calendario.html')
 
 def contact(request):
     if request.method == "POST":
