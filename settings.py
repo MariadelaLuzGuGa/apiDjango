@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-@^lpj**6#0)rbq_oamqmz=l&g8v4ny57$2ms&5zy59#7xxpl92
 DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['ServicioSocial.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1','ServicioSocial.onrender.com']
 
 # AUTH_USER_MODEL = 'api.Registros'
 
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.contenttypes',
-    'APIMARIA',
+    # 'APIMARIA',
 ]
 
 MIDDLEWARE = [
@@ -88,32 +88,32 @@ WSGI_APPLICATION = 'APIMARIA.wsgi.application'
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         # es el database
-#         'NAME': 'postgres',
-#         # el usuario
-#         'USER': 'postgres',
-#         'PASSWORD': 'AuJoMa.03',
-#         'HOST': 'localhost', 
-#         'PORT': '5432',     
-        
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # es el database
-        'NAME': 'servicio_7af3',
+        'NAME': 'postgres',
         # el usuario
-        'USER': 'maria2023',
-        'PASSWORD': 'SM0WKWhYqa5PEZRmTelnrs5WddcsIA36',
-        'HOST': 'oregon-postgres.render.com', 
+        'USER': 'postgres',
+        'PASSWORD': 'AuJoMa.03',
+        'HOST': 'localhost', 
         'PORT': '5432',     
+        
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         # es el database
+#         'NAME': 'servicio_7af3',
+#         # el usuario
+#         'USER': 'maria2023',
+#         'PASSWORD': 'SM0WKWhYqa5PEZRmTelnrs5WddcsIA36',
+#         'HOST': 'oregon-postgres.render.com', 
+#         'PORT': '5432',   
+#     }
+# }
 # 'NAME': 'ServicioSocial.db',
 
 
@@ -145,7 +145,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+# USE_L10N = True
 
 USE_TZ = True
 
