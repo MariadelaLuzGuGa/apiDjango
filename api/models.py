@@ -28,6 +28,7 @@ class Respuestaschatbot(models.Model):
 
     def __str__(self):
         return str(self.nombre_completo)
+    
 
 # models.py
 # from django.db import models

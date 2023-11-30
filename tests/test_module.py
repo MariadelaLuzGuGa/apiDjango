@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone
 from api.models import Registros, RegistroInicioSesion, RegistroCierreSesion, Respuestaschatbot
-from django.db.utils import IntegrityError
 
 class ModuloTestCase(TestCase):
             
@@ -44,6 +43,16 @@ class ModuloTestCase(TestCase):
             pregunta7="Question 7"
         )
         self.assertTrue(Respuestaschatbot.objects.filter(nombre_completo="John Doe").exists())
+    
+
+    # # Prueba para verificar el método __str__ del modelo
+    # def test_respuestaschatbot_str(respuesta_chatbot):
+    #     actual_str = str(respuesta_chatbot)
+    #     expected_str = 'John Doe'
+    #     assert actual_str == expected_str, f"Expected '{expected_str}', but got '{actual_str}'"
+
+    
+
 
     def test_marca_tiempo_inicio_sesion(self):
         #Registro de inicio de sesion en de usuario
@@ -57,7 +66,8 @@ class ModuloTestCase(TestCase):
         session = RegistroCierreSesion.objects.create(usuario=user)
         self.assertTrue(RegistroCierreSesion.objects.filter(usuario=user, marca_tiempo=session.marca_tiempo).exists())
 
-    # def test_relacion_clave_externa_inicio_sesion(self):
-    #     user = Registros.objects.create(uname="testuser", email="test@example.com", pass1="password1", pass2="password1")
-    #     session = RegistroInicioSesion.objects.create(usuario=user)
-    #     self.assertEqual(session.usuario, user)
+    def test_relacion_clave_externa_inicio_sesion(self):
+        #Vefifica que el usuario si este en el sistema
+        user = Registros.objects.create(uname="testuser", email="test@example.com", pass1="password1", pass2="password1")
+        session = RegistroInicioSesion.objects.create(usuario=user)
+        self.assertEqual(session.usuario, user)
