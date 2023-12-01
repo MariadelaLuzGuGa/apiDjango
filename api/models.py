@@ -30,10 +30,7 @@ class Respuestaschatbot(models.Model):
         return str(self.nombre_completo)
     
 
-# models.py
-# from django.db import models
-# models.py
-from django.db import models
+
 
 class RegistroInicioSesion(models.Model):
     usuario = models.ForeignKey('Registros', on_delete=models.CASCADE)
